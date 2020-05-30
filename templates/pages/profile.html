@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
+
+<h3>Username: {{ profile.username }}</h3>
+<h3>First name: {{ profile.first_name }}</h3>
+<h3>Last name: {{ profile.last_name }}</h3>
+<h3>Tweets: {{ profile.tweets }}</h3>
+<h3>Following: {{ profile.following }}</h3>
+<p>I am a profile page</p>
+
+{% endblock %}

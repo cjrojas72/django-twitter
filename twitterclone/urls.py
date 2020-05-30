@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from twitteruser.urls import urlpatterns as twitteruser_urls
+from authentication.urls import urlpatterns as authentication_urls
+from notification.urls import urlpatterns as notifications_urls
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += twitteruser_urls
+urlpatterns += authentication_urls
+urlpatterns += notifications_urls
