@@ -1,9 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
-class CustUser(AbstractUser):
-    display_name = models.CharField(max_length=50)
-    tweets = models.IntegerField(default=0)
-    following = models.IntegerField(default=0)
-    REQUIRED_FIELDS = ['display_name']
+class TweetUser(AbstractUser):
+    bio = models.TextField()
+    following = models.ManyToManyField(
+        'self', through='UserConnect', symmetrical=False, related_name='relationships')
+    created_on = models.DateTimeField(default=timezone.now)
+
+
+class UserConnect(models.Model):
+    owner = models.ForeignKey(
+        TweetUser, on_delete=models.CASCADE, related_name='owner')
+    target = models.ForeignKey(
+        TweetUser, on_delete=models.CASCADE, related_name='target')

@@ -1,5 +1,5 @@
 from django import forms
-from twitteruser.models import CustUser
+from twitteruser.models import TweetUser
 
 
 class LoginForm(forms.Form):

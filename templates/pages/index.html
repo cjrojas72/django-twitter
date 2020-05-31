@@ -1,4 +1,16 @@
 {% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
 <h1>Success</h1>
 <h2>Testing</h2>
+<ul>
+  {% for item in all %}
+  <li>
+    {{ item.username }}:<a href="/follow/{{ item.id }}">Follow</a> |
+    <a href="/unfollow/{{ item.id }}">Unfollow</a>
+  </li>
+  {% endfor %}
+</ul>
+<div>
+  following: {% for item in list %} {{ item.owner }} is following
+  {{item.target}} {% endfor %}
+</div>
 {% endblock %}
