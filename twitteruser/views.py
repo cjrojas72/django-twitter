@@ -22,7 +22,8 @@ def index(request):
 @login_required
 def profileview(request, id):
     profile = TweetUser.objects.get(id=id)
-    return render(request, 'pages/profile.html', {'profile': profile})
+    user_following = follow_list(profile)
+    return render(request, 'pages/profile.html', {'profile': profile, 'list': user_following})
 
 
 def follow(request, id):

@@ -4,7 +4,8 @@
 <h3>First name:</h3>
 <h3>Last name:</h3>
 <h3>Tweets:</h3>
-<h3>Following: {{ profile.following }}</h3>
+following: {% for item in list %} {{ item.owner }} is following {{item.target}}
+{% endfor %}
 <p>
   I am a profile page created on: {{ profile.created_on }}
 </p>

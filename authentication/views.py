@@ -2,7 +2,8 @@ from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from twitterclone.settings import AUTH_USER_MODEL
-from authentication.forms import LoginForm
+from authentication.forms import LoginForm, SignUpForm
+from twitteruser.models import TweetUser
 
 
 def loginview(request):
@@ -22,3 +23,19 @@ def loginview(request):
 def logoutview(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
+
+
+def signupview(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            TweetUser.objects.create_user(
+                username=data["username"],
+                password=data['password'],
+                email=data['email'],
+                bio=data['bio']
+            )
+            return HttpResponseRedirect(reverse('login'))
+    form = SignUpForm
+    return render(request, 'signup.html', {'form': form})
