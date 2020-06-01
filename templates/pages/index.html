@@ -1,16 +1,21 @@
 {% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
-<h1>Success</h1>
-<h2>Testing</h2>
-<ul>
-  {% for item in all %}
-  <li>
-    {{ item.username }}:<a href="/follow/{{ item.id }}">Follow</a> |
-    <a href="/unfollow/{{ item.id }}">Unfollow</a>
-  </li>
-  {% endfor %}
-</ul>
+<h2>Welcome {{ request.user }}</h2>
 <div>
-  following: {% for item in list %} {{ item.owner }} is following
-  {{item.target}} {% endfor %}
+  <h3>Following: {% for item in list %} {{item.target}}, {% endfor %}</h3>
+</div>
+<div>
+  <h2>The Feed</h2>
+  <button><a href="/tweet/">Tweet!</a></button>
+  <ul>
+    {% for tweet in feed %}
+    <li>
+      <hr />
+      <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>:
+      <p>{{tweet.body}}</p>
+      <p>{{ tweet.date }}</p>
+      <hr />
+    </li>
+    {% endfor %}
+  </ul>
 </div>
 {% endblock %}

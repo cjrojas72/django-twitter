@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Not Twitter</h1>
+{% include 'nav.html' %}
+<p>Tell the world whats on your mind</p>
+<form action="/tweet/" method="POST">
+  {% csrf_token %} {{ form.as_p }}
+  <input type="submit" value="Tweet" />
+</form>
+
+{% endblock %}
