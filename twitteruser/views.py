@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from twitteruser.models import TweetUser, UserConnect
 from twitterclone.settings import AUTH_USER_MODEL
 from tweet.models import Tweet
+from notification.views import count_notifications
 
 
 def index(request):
@@ -16,8 +17,9 @@ def index(request):
 
         tweet_count = len(Tweet.objects.filter(author=user.id))
         follow_count = len(user_following)
+        notifications = count_notifications(user)
 
-        return render(request, 'pages/index.html', {'list': user_following, 'feed': tweetfeed, 'tweet_count': tweet_count, 'follow_count': follow_count})
+        return render(request, 'pages/index.html', {'list': user_following, 'feed': tweetfeed, 'tweet_count': tweet_count, 'follow_count': follow_count, 'notifications': notifications})
     else:
         return HttpResponseRedirect(reverse('login'))
 
@@ -40,8 +42,9 @@ def profileview(request, id):
 
     tweet_count = len(Tweet.objects.filter(author=id))
     follow_count = len(user_following)
+    notifications = count_notifications(request.user)
 
-    return render(request, 'pages/profile.html', {'profile': profile, 'list': user_following, 'tweets': tweets, 'tweet_count': tweet_count, 'follow_count': follow_count})
+    return render(request, 'pages/profile.html', {'profile': profile, 'list': user_following, 'tweets': tweets, 'tweet_count': tweet_count, 'follow_count': follow_count, 'notifications': notifications})
 
 
 def follow(request, id):

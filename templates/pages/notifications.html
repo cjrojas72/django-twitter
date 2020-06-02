@@ -1,3 +1,14 @@
 {% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
 <h1>This is where notifications will go</h1>
+<ul>
+  {% for tweet in tweets %}
+  <li>
+    <hr />
+    <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>:
+    <p>{{tweet.body}}</p>
+    <p><a href="/tweetview/{{ tweet.id }}">{{ tweet.date }}</a></p>
+    <hr />
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}

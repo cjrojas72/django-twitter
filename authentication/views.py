@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from twitterclone.settings import AUTH_USER_MODEL
 from authentication.forms import LoginForm, SignUpForm
 from twitteruser.models import TweetUser
+from notification.models import Notifications
 
 
 def loginview(request):
@@ -30,11 +31,15 @@ def signupview(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            TweetUser.objects.create_user(
+            user = TweetUser.objects.create_user(
                 username=data["username"],
                 password=data['password'],
                 email=data['email'],
                 bio=data['bio']
+            )
+            Notifications.objects.create(
+                user=user,
+                notification_count=0
             )
             return HttpResponseRedirect(reverse('login'))
     form = SignUpForm
