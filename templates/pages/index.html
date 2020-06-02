@@ -1,7 +1,9 @@
 {% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
+<h1>--------------------------Home--------------------</h1>
 <h2>Welcome {{ request.user }}</h2>
 <div>
-  <h3>Following: {% for item in list %} {{item.target}}, {% endfor %}</h3>
+  <h3>Following: {{ follow_count }}</h3>
+  <h3>Tweets: {{ tweet_count }}</h3>
 </div>
 <div>
   <h2>The Feed</h2>
@@ -12,7 +14,7 @@
       <hr />
       <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>:
       <p>{{tweet.body}}</p>
-      <p>{{ tweet.date }}</p>
+      <p><a href="/tweetview/{{ tweet.id }}">{{ tweet.date }}</a></p>
       <hr />
     </li>
     {% endfor %}

@@ -17,3 +17,8 @@ def AddTweet(request):
     form = AddTweetForm()
 
     return render(request, 'tweet.html', {"form": form})
+
+
+def TweetView(request, id):
+    tweet = Tweet.objects.get(id=id)
+    return render(request, 'tweetview.html', {'tweet': tweet})

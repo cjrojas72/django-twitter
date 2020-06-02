@@ -1,13 +1,18 @@
 {% extends 'base.html' %} {% block content %} {% include 'nav.html' %}
-
+<h1>--------------------------Profile--------------------</h1>
 <h3>Username: {{ profile.username }}</h3>
-<h3>First name:</h3>
-<h3>Last name:</h3>
-<h3>Tweets:</h3>
-following:
+{% if profile.id != request.user.id %}
+<button><a href="/follow/{{ profile.id }}">follow</a></button>
+<button><a href="/unfollow/{{ profile.id }}">unfollow</a></button>
+{% endif %}
+<h3>Tweets:{{ tweet_count }}</h3>
+<h3>Following: {{ follow_count }}</h3>
+users being followed by {{ profile.username }}:
 <ul>
   {% for item in list %}
-  <li>{{ item.owner }} is following {{item.target}}</li>
+  <li>
+    <a href="/profile/{{ item.target.id }}">{{ item.target.username }}</a>
+  </li>
   {% endfor %}
 </ul>
 <p>
@@ -21,7 +26,7 @@ following:
     <hr />
     <a href="/profile/{{ tweet.author.id }}">{{ tweet.author }}</a>:
     <p>{{tweet.body}}</p>
-    <p>{{ tweet.date }}</p>
+    <p><a href="/tweetview/{{ tweet.id }}">{{ tweet.date }}</a></p>
     <hr />
   </li>
   {% endfor %}
